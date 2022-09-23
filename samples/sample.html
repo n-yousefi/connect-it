@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="#" />
+    <title>Pop-up info box — web components</title>
+    <script src="../dist/connect-it.js" defer></script>
+  </head>
+  <body>
+    <connect-it class="container">
+      <nodes>
+        <div
+          id="item1"
+          class="node node1"
+          style="position: fixed; left: 580.8594px; top: 459px"
+        >
+          fixed position
+        </div>
+        <br />
+        <div
+          id="item2"
+          class="node"
+          style="
+            position: static;
+            text-align: center;
+            background-color: aquamarine;
+          "
+        >
+          static position
+        </div>
+
+        <div
+          style="
+            border: 1px solid;
+            display: flex;
+            width: 300px;
+            height: 500px;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <div id="item3" class="node">flex display</div>
+        </div>
+        <ul
+          id="item4"
+          class="node"
+          style="position: absolute; left: 950px; top: 100px"
+        >
+          <li>item 1</li>
+          <li>item 1</li>
+          <li>item 1</li>
+        </ul>
+
+        <img
+          id="item5"
+          class="node"
+          style="position: absolute; left: 900px; top: 400px; width: 200px"
+          src="img.png"
+          loading="lazy"
+        />
+      </nodes>
+      <shapes>
+        <shape
+          name="shape1"
+          type="triangle"
+          size="10"
+          offset="10"
+          color="red"
+        ></shape>
+        <shape name="shape2" type="rectangle" size="10" offset="8"></shape>
+        <shape
+          name="shape3"
+          type="circle"
+          size="5"
+          color="red"
+          offset="5"
+        ></shape>
+      </shapes>
+      <edges>
+        <edge
+          from="item1"
+          to="item2"
+          color="red"
+          marker-start="shape2"
+          marker-end="shape1"
+          size="2"
+        ></edge>
+        <edge
+          from="item1"
+          to="item3"
+          marker-start="shape2"
+          marker-end="shape2"
+          size="1"
+        ></edge>
+        <edge
+          from="item2"
+          to="item3"
+          marker-start="shape2"
+          marker-end="shape1"
+        ></edge>
+        <edge
+          from="item4"
+          to="item1"
+          marker-start="shape2"
+          marker-end="shape1"
+        ></edge>
+        <edge
+          from="item5"
+          to="item3"
+          marker-start="shape2"
+          marker-end="shape1"
+        ></edge>
+      </edges>
+    </connect-it>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "connect-it",
+  "version": "1.0.0",
+  "private": true,
+  "summery": "Connect everything with a line",
+  "author": "Naser Yousefi",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/n-yousefi/connect-it.git"
+  },
+  "main": "dist/connect-it.js",
+  "module": "dist/connect-it.js",
+  "keywords": [
+    "graph",
+    "line",
+    "svg",
+    "connector",
+    "link",
+    "arrow",
+    "arc"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/n-yousefi/connect-it/issues"
+  },
+  "homepage": "https://github.com/n-yousefi/connect-it",
+  "scripts": {
+    "build": "rollup -c -m",
+    "dev": "rollup -c -w -m"
+  },
+  "devDependencies": {
+    "rollup": "^2.78.1",
+    "rollup-plugin-terser": "^7.0.2"
+  }
+}
