@@ -1,7 +1,7 @@
 {
   "name": "connect-it",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "summery": "Connect everything with a line",
   "author": "Naser Yousefi",
   "repository": {
