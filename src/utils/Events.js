@@ -1,12 +1,5 @@
 import { addSelectedPathStyles, removeSelectedPathStyles } from "./Dom";
 import * as Dom from "./Dom";
-import refreshMarkers from "../components/edge/marker/Marker";
-import refreshEdges from "../components/edge/Edge";
-
-const addEvents = (connectIt) => {
-  addImageEvents(connectIt);
-  addMouseEvents(connectIt);
-};
 
 const addMouseEvents = function (connectIt) {
   connectIt.addEventListener("click", function (e) {
@@ -38,26 +31,4 @@ const addMouseEvents = function (connectIt) {
   });
 };
 
-const addImageEvents = (connectIt) => {
-  onImagesLoaded(connectIt, () => {
-    refreshMarkers(connectIt);
-    refreshEdges(connectIt);
-  });
-};
-
-const onImagesLoaded = function (connectIt, func) {
-  Promise.all(
-    Array.from(Dom.getImages(connectIt))
-      .filter((img) => !img.complete)
-      .map(
-        (img) =>
-          new Promise((resolve) => {
-            img.onload = img.onerror = resolve;
-          })
-      )
-  ).then(() => {
-    func();
-  });
-};
-
-export default addEvents;
+export default addMouseEvents;

@@ -14,7 +14,7 @@
           class="node node1"
           style="position: fixed; left: 580.8594px; top: 459px"
         >
-          fixed position
+          fixed positioned div
         </div>
         <br />
         <div
@@ -23,32 +23,51 @@
           style="
             position: static;
             text-align: center;
+            width: 200px;
+            margin: 0 auto;
             background-color: aquamarine;
           "
         >
-          static position
+          static positioned div
         </div>
 
         <div
           style="
             border: 1px solid;
             display: flex;
-            width: 300px;
-            height: 500px;
-            align-items: center;
+            width: 150px;
+            margin: 100px;
+            flex-direction: column;
+            flex-flow: space-between;
+            align-items: flex-start;
             justify-content: center;
           "
         >
-          <div id="item3" class="node">flex display</div>
+          <p>flex positioned div</p>
+          <div
+            style="background-color: rgb(190, 255, 235); margin: 10px"
+            class="node"
+          >
+            flex child 1
+          </div>
+          <div
+            id="item3"
+            style="background-color: rgb(249, 189, 255); margin: 10px"
+            class="node"
+          >
+            flex child 2
+          </div>
         </div>
         <ul
           id="item4"
           class="node"
           style="position: absolute; left: 950px; top: 100px"
         >
-          <li>item 1</li>
-          <li>item 1</li>
-          <li>item 1</li>
+          <li>absolute postioned list</li>
+          <li>item</li>
+          <li>item</li>
+          <li>item</li>
+          <li>item</li>
         </ul>
 
         <img
