@@ -1,4 +1,4 @@
-### &lt;connect-it&gt;
+# &lt;connect-it&gt;
 
 Connect everything together with the SVG lines, like a graph or digraph. Just introduce your styled tags as nodes and then specify the adjacent nodes.
 
