@@ -1,6 +1,6 @@
-## <connect-to>
+## # &lt;connect-to&gt;
 
-Connect everything together with SVG lines, like a graph or digraph. Just introduce your styled tag as a node and then specify the adjacent node.
+Connect everything together with the SVG lines, like a graph or digraph. Just introduce your styled tags as nodes and then specify the adjacent nodes.
 
 ![Directed Javascript graph](https://github.com/n-yousefi/connect-it/blob/main/samples/demo.jpg)
 
@@ -16,15 +16,15 @@ $ npm install connect-to --save-dev
 
 ## How it works
 
-### Nodes:
+### Nodes
 
-Spacify an Id for your tag and put it inside the <nodes> tag. You can style it as you wish.
+Spacify an Id for your tag and put it inside the nodes tag. You can style it as you wish.
 
 ```html
 <nodes>
-  <div id="node 1">First</div>
-  <div id="node 2">Second</div>
-  <div id="node 2">Third</div>
+  <div id="node1">First</div>
+  <div id="node2">Second</div>
+  <div id="node3">Third</div>
 </nodes>
 ```
 
@@ -34,9 +34,9 @@ Define source and adjacent nodes to draw the graph. You can specify the color an
 
 ```html
 <edges>
-  <edge from="item1" to="item2" color="red"></edge>
-  <edge from="item1" to="item3"></edge>
-  <edge from="item2" to="item3" size="2"></edge>
+  <edge from="node1" to="node2" color="red"></edge>
+  <edge from="node1" to="node3"></edge>
+  <edge from="node2" to="node3" size="2"></edge>
 </edges>
 ```
 
@@ -52,10 +52,10 @@ For now, we support 3 type of markers; Circle, square and triangle. You should d
 </shapes>
 ```
 
-then you can use this shapes as edge start or end marker:
+then you can use this shapes as an edge marker:
 
 ```html
-<edge from="item1" to="item2" marker-start="shape2" marker-end="shape1"></edge>
+<edge from="node1" to="node2" marker-start="shape2" marker-end="shape1"></edge>
 ```
 
 ## Author
