@@ -4,22 +4,17 @@
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="#" />
     <title>Pop-up info box — web components</title>
-    <script src="../dist/connect-it.js" defer></script>
+    <script src="./connect-it.js" defer></script>
   </head>
   <body>
-    <connect-it class="container">
+    <connect-it>
       <nodes>
-        <div
-          id="item1"
-          class="node node1"
-          style="position: fixed; left: 580.8594px; top: 459px"
-        >
+        <div id="item1" style="position: fixed; left: 580.8594px; top: 459px">
           fixed positioned div
         </div>
         <br />
         <div
           id="item2"
-          class="node"
           style="
             position: static;
             text-align: center;
@@ -44,25 +39,17 @@
           "
         >
           <p>flex positioned div</p>
-          <div
-            style="background-color: rgb(190, 255, 235); margin: 10px"
-            class="node"
-          >
+          <div style="background-color: rgb(190, 255, 235); margin: 10px">
             flex child 1
           </div>
           <div
             id="item3"
             style="background-color: rgb(249, 189, 255); margin: 10px"
-            class="node"
           >
             flex child 2
           </div>
         </div>
-        <ul
-          id="item4"
-          class="node"
-          style="position: absolute; left: 950px; top: 100px"
-        >
+        <ul id="item4" style="position: absolute; left: 950px; top: 100px">
           <li>absolute postioned list</li>
           <li>item</li>
           <li>item</li>
@@ -72,7 +59,6 @@
 
         <img
           id="item5"
-          class="node"
           style="position: absolute; left: 900px; top: 400px; width: 200px"
           src="img.png"
           loading="lazy"
