@@ -1,4 +1,4 @@
-## # &lt;connect-to&gt;
+### &lt;connect-it&gt;
 
 Connect everything together with the SVG lines, like a graph or digraph. Just introduce your styled tags as nodes and then specify the adjacent nodes.
 
@@ -10,8 +10,10 @@ The best way to become acquainted with the library is to see [Demos](https://htm
 
 ## Installing
 
+[![npm](https://img.shields.io/badge/npm-connect--to-brightgreen)](https://www.npmjs.com/package/connect-it/)
+
 ```bash
-$ npm install connect-to --save-dev
+$ npm install connect-it --save-dev
 ```
 
 ## How it works
