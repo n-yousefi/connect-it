@@ -1,5 +1,5 @@
 import Circle from "./Circle";
-import Rectangle from "./Rectangle";
+import Square from "./Square";
 import Triangle from "./Triangle";
 
 const refreshMarkers = (connectIt) => {
@@ -13,8 +13,8 @@ const refreshMarkers = (connectIt) => {
       case "circle":
         markerHtml = Circle(shape);
         break;
-      case "rectangle":
-        markerHtml = Rectangle(shape);
+      case "square":
+        markerHtml = Square(shape);
         break;
       default:
         break;

@@ -47,7 +47,7 @@ For now, we support 3 type of markers; Circle, square and triangle. You should d
 ```html
 <shapes>
   <shape name="shape1" type="triangle" size="10" color="red"></shape>
-  <shape name="shape2" type="rectangle" size="10"></shape>
+  <shape name="shape2" type="square" size="10"></shape>
   <shape name="shape3" type="circle" size="5" color="red"></shape>
 </shapes>
 ```

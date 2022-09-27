@@ -1,4 +1,4 @@
-const Rectangle = (shape) => {
+const Square = (shape) => {
   const size = shape.size ?? 6;
   const center = size / 2;
   const color = shape.color ?? "black";
@@ -14,4 +14,4 @@ const Rectangle = (shape) => {
     <rect x="0" y="0" width=${center} height=${center}  fill="${color}"/>
   </marker>`;
 };
-export default Rectangle;
+export default Square;
