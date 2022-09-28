@@ -39,4 +39,4 @@ class ConnectTo extends HTMLElement {
   };
 }
 
-customElements.define("connect-it", ConnectTo);
+customElements.get("connect-it") || customElements.define("connect-it", ConnectTo);
