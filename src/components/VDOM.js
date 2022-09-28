@@ -14,12 +14,15 @@ export class VDOM {
     edges.forEach((edge) => {
       const from = this.getById(this.nodes, edge.from);
       const to = this.getById(this.nodes, edge.to);
-      from.adjacents.push({
-        to,
-        ...this.getMarkers(edge),
-        color: edge.color,
-        size: edge.size,
-      });
+      if(to && from)
+      {
+        from.adjacents.push({
+          to,
+          ...this.getMarkers(edge),
+          color: edge.color,
+          size: edge.size,
+        });
+      }
     });
   }
 
@@ -30,8 +33,8 @@ export class VDOM {
         const line = Calc.getEdgeLine(node, adjacent.to);
         edges.push({
           line,
-          markerStart: adjacent.markerStart.id + "Start",
-          markerEnd: adjacent.markerEnd.id + "End",
+          markerStart: adjacent.markerStart?.id + "Start",
+          markerEnd: adjacent.markerEnd?.id + "End",
           color: adjacent.color,
           size: adjacent.size,
         });

@@ -4,7 +4,7 @@ import { VDOM } from "./components/VDOM";
 import refreshMarkers from "./components/edge/marker/Marker";
 import refreshEdges from "./components/edge/Edge";
 
-class Main extends HTMLElement {
+class ConnectTo extends HTMLElement {
   constructor() {
     super();
 
@@ -39,4 +39,4 @@ class Main extends HTMLElement {
   };
 }
 
-customElements.define("connect-it", Main);
+customElements.define("connect-it", ConnectTo);

@@ -1,6 +1,6 @@
 import { terser } from "rollup-plugin-terser";
 export default {
-  input: "src/Main.js",
+  input: "src/ConnectTo.js",
   watch: {
     include: "./src/**",
     clearScreen: false,
