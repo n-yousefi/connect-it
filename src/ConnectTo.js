@@ -7,16 +7,54 @@ import refreshEdges from "./components/edge/Edge";
 class ConnectTo extends HTMLElement {
   constructor() {
     super();
+  }
 
+  connectedCallback() {
+    const connectTo = this;
+    addSvg(this);
     this.onLoad(() => {
-      this.addCommonStyles();
-      this.vdom = new VDOM(this);
-      addSvg(this);
-      addMouseEvents(this);
-      refreshMarkers(this);
-      refreshEdges(this);
+      connectTo.refresh();
+    });
+    this.observe(function (mutation) {
+      if (mutation.target.parent == this && !mutation.target.closest("nodes"))
+        return;
+      connectTo.refresh();
     });
   }
+
+  disconnectedCallback() {
+    this.observer.disconnect();
+  }
+
+  observe = (handler) => {
+    this.observer = new MutationObserver(function (mutations) {
+      mutations.forEach(handler);
+    });
+
+    this.observer.observe(document, {
+      attributes: true,
+      childList: true,
+      subtree: true,
+    });
+  };
+
+  refresh = () => {
+    const vdom = new VDOM(this);
+    if (JSON.stringify(vdom) !== JSON.stringify(this.vdom)) {
+      this.vdom = vdom;
+      //addMouseEvents(this);
+      refreshMarkers(this);
+      refreshEdges(this);
+      this.resizeSVG();
+    }
+  };
+
+  resizeSVG = () => {
+    var svg = this.querySelector("svg");
+    var bbox = svg.getBBox();
+    svg.setAttribute("width", bbox.x + bbox.width + bbox.x);
+    svg.setAttribute("height", bbox.y + bbox.height + bbox.y);
+  };
 
   onLoad = (func) => {
     Promise.all(
@@ -32,11 +70,7 @@ class ConnectTo extends HTMLElement {
       func();
     });
   };
-
-  addCommonStyles = () => {
-    this.style["overflow"] = "hidden";
-    this.style["z-index"] = "1";
-  };
 }
 
-customElements.get("connect-it") || customElements.define("connect-it", ConnectTo);
+customElements.get("connect-it") ||
+  customElements.define("connect-it", ConnectTo);

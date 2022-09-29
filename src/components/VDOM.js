@@ -14,8 +14,11 @@ export class VDOM {
     edges.forEach((edge) => {
       const from = this.getById(this.nodes, edge.from);
       const to = this.getById(this.nodes, edge.to);
-      if(to && from)
-      {
+      if (
+        to &&
+        from &&
+        (to.center.x !== from.center.x || to.center.y !== from.center.y)
+      ) {
         from.adjacents.push({
           to,
           ...this.getMarkers(edge),
