@@ -1,6 +1,6 @@
 # &lt;connect-it&gt;
 
-Connect everything together with the SVG lines, like a graph or digraph. Just introduce your styled tags as nodes and then specify the adjacent nodes.
+Connect everything together with SVG lines. &lt;connect-it&gt; is a web component that is responsible for creating a graph or digraph. Just introduce your styled tags as nodes and then specify the adjacent nodes.
 
 ![Directed Javascript graph](https://github.com/n-yousefi/connect-it/blob/main/samples/demo.jpg)
 
