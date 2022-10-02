@@ -11,6 +11,7 @@ The best way to become acquainted with the library is to see [Demos](https://htm
 ## Installing
 
 Using npm:
+
 [![npm](https://img.shields.io/badge/npm-connect--to-brightgreen)](https://www.npmjs.com/package/connect-it/)
 
 ```bash
