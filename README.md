@@ -10,10 +10,30 @@ The best way to become acquainted with the library is to see [Demos](https://htm
 
 ## Installing
 
+Using npm:
+
 [![npm](https://img.shields.io/badge/npm-connect--to-brightgreen)](https://www.npmjs.com/package/connect-it/)
 
 ```bash
 $ npm install connect-it
+```
+
+Then import it:
+
+```html
+<script src="./node_modules/connect-it/dist/connect-it.js" defer></script>
+```
+
+Using jsDelivr CDN:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/connect-it/dist/connect-it.js"></script>
+```
+
+Using unpkg CDN:
+
+```html
+<script src="https://unpkg.com/connect-it/dist/connect-it.js"></script>
 ```
 
 ## How it works
