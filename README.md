@@ -60,6 +60,10 @@ then you can use this shapes as an edge marker:
 <edge from="node1" to="node2" marker-start="shape2" marker-end="shape1"></edge>
 ```
 
+### Limitations
+
+Currently fixed and sticky position is not supported.
+
 ## Author
 
 Naser Yousefi
