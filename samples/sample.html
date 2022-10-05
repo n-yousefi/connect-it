@@ -5,70 +5,69 @@
     <link rel="shortcut icon" href="#" />
     <title>Pop-up info box — web components</title>
     <script src="../dist/connect-it.js" defer></script>
+    <style>
+      #item1 {
+        position: relative;
+        left: 600px;
+        top: 500px;
+        width: 200px;
+        background-color: bisque;
+        text-align: center;
+      }
+      #item2 {
+        position: static;
+        text-align: center;
+        width: 200px;
+        margin: 0 auto;
+        background-color: aquamarine;
+      }
+      #flex {
+        border: 1px solid;
+        display: flex;
+        width: 150px;
+        margin: 100px;
+        flex-direction: column;
+        flex-flow: space-between;
+        align-items: flex-start;
+        justify-content: center;
+      }
+      #flex div {
+        background-color: rgb(190, 255, 235);
+        margin: 10px;
+      }
+
+      #item4 {
+        position: absolute;
+        left: 950px;
+        top: 100px;
+      }
+
+      #item5 {
+        position: absolute;
+        left: 900px;
+        top: 400px;
+        width: 200px;
+      }
+    </style>
   </head>
   <body>
     <connect-it>
       <nodes>
-        <div id="item1" style="position: fixed; left: 580.8594px; top: 459px">
-          fixed positioned div
-        </div>
+        <div id="item1">relative positioned div</div>
         <br />
-        <div
-          id="item2"
-          style="
-            position: static;
-            text-align: center;
-            width: 200px;
-            margin: 0 auto;
-            background-color: aquamarine;
-          "
-        >
-          static positioned div
-        </div>
-        <div>test</div>
-        <div>test</div>
-        <div>test</div>
-        <div>test</div>
-        <div>test</div>
-        <div>test</div>
+        <div id="item2">static positioned div</div>
 
-        <div
-          style="
-            border: 1px solid;
-            display: flex;
-            width: 150px;
-            margin: 100px;
-            flex-direction: column;
-            flex-flow: space-between;
-            align-items: flex-start;
-            justify-content: center;
-          "
-        >
+        <div id="flex">
           <p>flex positioned div</p>
-          <div style="background-color: rgb(190, 255, 235); margin: 10px">
-            flex child 1
-          </div>
-          <div
-            id="item3"
-            style="background-color: rgb(249, 189, 255); margin: 10px"
-          >
-            flex child 2
-          </div>
+          <div>flex child 1</div>
+          <div id="item3">flex child 2</div>
         </div>
-        <ul id="item4" style="position: absolute; left: 950px; top: 100px">
-          <li>absolute postioned list</li>
-          <li>item</li>
-          <li>item</li>
-          <li>item</li>
-          <li>item</li>
+        <ul id="item4">
+          <li>absolute postioned</li>
+          <li>item 1</li>
         </ul>
 
-        <img
-          id="item5"
-          style="position: absolute; left: 900px; top: 400px; width: 200px"
-          src="img.png"
-          loading="lazy"
-        />
+        <img id="item5" src="img.png" loading="lazy" />
       </nodes>
       <shapes>
         <shape

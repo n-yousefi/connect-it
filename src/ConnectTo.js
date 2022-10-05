@@ -10,6 +10,7 @@ class ConnectTo extends HTMLElement {
   }
 
   connectedCallback() {
+    this.onScroll();
     const connectTo = this;
     addSvg(this);
     this.onLoad(() => {
@@ -21,6 +22,12 @@ class ConnectTo extends HTMLElement {
       connectTo.refresh();
     });
   }
+
+  onScroll = () => {
+    const connectTo = this;
+    document.addEventListener("scroll", connectTo.refresh);
+    window.addEventListener("resize", connectTo.refresh);
+  };
 
   disconnectedCallback() {
     this.observer.disconnect();

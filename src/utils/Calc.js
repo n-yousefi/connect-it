@@ -18,7 +18,7 @@ const getColidPoint = function (edge, destinationLines) {
   return result;
 };
 
-const gettagLinesLines = function (div) {
+const getBorderLines = function (div) {
   var result = new Object();
   result.left = {
     x1: div.offsetLeft,
@@ -89,7 +89,7 @@ const getEdgeLine = (nodeShape, adjacentShape) => {
 
 const getNodeShape = (node) => {
   const center = getCenter(node);
-  const tagLines = gettagLinesLines(node);
+  const tagLines = getBorderLines(node);
   return {
     center: center,
     tagLines: tagLines,
