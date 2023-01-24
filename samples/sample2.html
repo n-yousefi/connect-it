@@ -51,7 +51,7 @@
     </style>
   </head>
   <body>
-    <connect-it>
+    <connect-it id="graph">
       <nodes>
         <div id="item1">relative positioned div</div>
         <br />
@@ -122,5 +122,16 @@
         ></edge>
       </edges>
     </connect-it>
+    <script>
+      document.getElementById("graph").onEdgesMouseout = (edge) => {
+        edge.setAttribute("color", "black");
+      };
+      document.getElementById("graph").onEdgesMousein = (edge) => {
+        edge.setAttribute("color", "blue");
+      };
+      document.getElementById("graph").onEdgesClick = (edge) => {
+        edge.setAttribute("size", Number(edge.getAttribute("size")) + 2);
+      };
+    </script>
   </body>
 </html>

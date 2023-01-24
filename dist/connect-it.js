@@ -1,43 +1,6 @@
 (function () {
   'use strict';
 
-  const Defs = () => {
-    return `<defs></defs>`;
-  };
-
-  const Gmain = () => {
-    return `<g class="gmain" fill="none" stroke="black" stroke-width="2"></g>`;
-  };
-
-  const Gshadow = () => {
-    return `<g class="gshadow"></g>`;
-  };
-
-  const addSvg = (connectIt) => {
-    const html = `<svg style="position: absolute; top: 0; left: 0;  z-index:-1">
-    ${Defs() + Gmain() + Gshadow()}
-    </svg>`;
-
-    connectIt.insertAdjacentHTML("afterbegin", html);
-    connectIt.defs = connectIt.querySelector("defs");
-  };
-
-  const resetGraphics = function (connectIt) {
-    const main = getGmain(connectIt);
-    const shadows = getGshadow(connectIt);
-    main.innerHTML = "";
-    shadows.innerHTML = "";
-    return { main, shadows };
-  };
-
-  const getGmain = function (connectIt) {
-    return connectIt.querySelector("svg > g.gmain");
-  };
-
-  const getGshadow = function (connectIt) {
-    return connectIt.querySelector("svg > g.gshadow");
-  };
-
   const getCenter = function (div) {
     return {
       x: div.offsetLeft + div.offsetWidth / 2,
@@ -238,167 +201,254 @@
     }
   }
 
-  const Circle = (shape) => {
-    const size = shape.size ?? 6;
-    const center = size / 2;
-    const color = shape.color ?? "black";
+  class Marker {
+    constructor(shape) {
+      this.shape = shape;
+    }
 
-    return `<marker id="${
-    shape.id
-  }Start" orient="auto" refY="${center}" refX="${0}" markerHeight="${size}" markerWidth="${size}" viewBox="0 0 ${size} ${size}">
-    <circle cx=${center} cy=${center} r=${center}  fill="${color}"></circle>
-  </marker>
-  <marker id="${
-    shape.id
-  }End" orient="auto" refY="${center}" refX="${size}" markerHeight="${size}" markerWidth="${size}" viewBox="0 0 ${size} ${size}">
-      <circle cx=${center} cy=${center} r=${center}  fill="${color}"></circle>
-  </marker>`;
-  };
+    createMarker() {
+      const marker = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "marker"
+      );
+      marker.setAttribute("id", this.shape.id + this.type);
+      marker.setAttribute("orient", "auto");
+      marker.setAttribute("refY", this.refY);
+      marker.setAttribute("refX", this.refX);
+      marker.setAttribute("markerHeight", this.size);
+      marker.setAttribute("markerWidth", this.size);
+      marker.setAttribute("viewBox", `0 0 ${this.size} ${this.size}`);
+      return marker;
+    }
+  }
 
-  const Square = (shape) => {
-    const size = shape.size ?? 6;
-    const center = size / 2;
-    const color = shape.color ?? "black";
+  class TriangleMarker extends Marker {
+    constructor(shape) {
+      super(shape);
+      this.type = "Start";
+      this.size = shape.size ?? 6;
+      this.center = this.size / 2;
+      this.color = shape.color ?? "black";
+      this.refX = 0;
+      this.refY = this.center;
+    }
 
-    return `<marker id="${shape.id}Start" orient="auto" refY="${
-    center / 2
-  }" refX="${0}" markerHeight="${size}" markerWidth="${size}" viewBox="0 0 ${size} ${size}">
-    <rect x="0" y="0" width=${center} height=${center}  fill="${color}"/>
-  </marker>
-  <marker id="${shape.id}End" orient="auto" refY="${
-    center / 2
-  }" refX="${center}" markerHeight="${size}" markerWidth="${size}" viewBox="0 0 ${size} ${size}">
-    <rect x="0" y="0" width=${center} height=${center}  fill="${color}"/>
-  </marker>`;
-  };
+    createMarker() {
+      const marker = super.createMarker();
+      const triangle = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "polygon"
+      );
+      triangle.setAttribute(
+        "points",
+        `0,0 0,${this.size} ${this.center},${this.center}`
+      );
+      triangle.setAttribute("fill", this.color);
+      marker.appendChild(triangle);
+      return marker;
+    }
+  }
 
-  const Triangle = function (shape) {
-    const size = shape.size ?? 6;
-    const center = size / 2;
-    const color = shape.color ?? "black";
-    return `<marker id="${
-    shape.id
-  }Start" orient="auto" refY="${center}" refX="${0}" 
-    markerHeight="${size}" markerWidth="${size}" viewBox="0 0 ${size} ${size}">
-        <polygon points="0,0 0,${size} ${center},${center}" fill="${color}"></polygon>
-  </marker>
-  <marker id="${shape.id}End" orient="auto" refY="${center}" refX="${center}" 
-    markerHeight="${size}" markerWidth="${size}" viewBox="0 0 ${size} ${size}">
-        <polygon points="0,0 0,${size} ${center},${center}" fill="${color}"></polygon>
-  </marker>`;
-  };
+  class CircleMarker extends Marker {
+    constructor(shape) {
+      super(shape);
+      this.type = "Start";
+      this.size = shape.size ?? 6;
+      this.center = this.size / 2;
+      this.color = shape.color ?? "black";
+      this.refX = 0;
+      this.refY = this.center;
+    }
+
+    createMarker() {
+      const marker = super.createMarker();
+      const circle = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "circle"
+      );
+      circle.setAttribute("cx", this.center);
+      circle.setAttribute("cy", this.center);
+      circle.setAttribute("r", this.center);
+      circle.setAttribute("fill", this.color);
+      marker.appendChild(circle);
+      return marker;
+    }
+  }
+
+  class SquareMarker extends Marker {
+    constructor(shape) {
+      super(shape);
+      this.type = "Start";
+      this.size = shape.size ?? 6;
+      this.center = this.size / 2;
+      this.color = shape.color ?? "black";
+      this.refX = 0;
+      this.refY = this.center / 2;
+    }
+
+    createMarker() {
+      const marker = super.createMarker();
+      const square = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "rect"
+      );
+      square.setAttribute("x", "0");
+      square.setAttribute("y", "0");
+      square.setAttribute("width", this.center);
+      square.setAttribute("height", this.center);
+      square.setAttribute("fill", this.color);
+      marker.appendChild(square);
+      return marker;
+    }
+  }
 
   const refreshMarkers = (connectIt) => {
     connectIt.defs.innerHTML = "";
     connectIt.vdom.shapes.forEach((shape) => {
-      let markerHtml = "";
+      let markerStart = null;
+      let markerEnd = null;
       switch (shape.type) {
         case "triangle":
-          markerHtml = Triangle(shape);
+          markerStart = new TriangleMarker(shape);
+          markerEnd = new TriangleMarker(shape);
+          markerEnd.type = "End";
+          markerEnd.refX = markerEnd.center;
           break;
         case "circle":
-          markerHtml = Circle(shape);
+          markerStart = new CircleMarker(shape);
+          markerEnd = new CircleMarker(shape);
+          markerEnd.type = "End";
+          markerEnd.refX = markerEnd.size;
           break;
         case "square":
-          markerHtml = Square(shape);
+          markerStart = new SquareMarker(shape);
+          markerEnd = new SquareMarker(shape);
+          markerEnd.type = "End";
+          markerEnd.refX = markerEnd.center;
           break;
       }
-      connectIt.defs.insertAdjacentHTML("beforeend", markerHtml);
+      connectIt.defs.appendChild(markerStart.createMarker());
+      connectIt.defs.appendChild(markerEnd.createMarker());
     });
   };
 
-  const D = (line) => {
-    return `M${line.x1},${line.y1} L${line.x2},${line.y2} `;
-  };
-
-  const ShadowPath = (d) => {
-    return `<path stroke="transparent" stroke-width="12" d="${d}"/>`;
-  };
-
-  const Path = (d, edge) => {
-    return `<path d="${d}" 
-    stroke="${edge.color}" 
-    stroke-width="${edge.size ?? 2}" 
-    marker-start="url(#${edge.markerStart})"
-    marker-end="url(#${edge.markerEnd})"
-    "/>`;
-  };
-
-  const refreshEdges = function (connectIt) {
-    const graphics = resetGraphics(connectIt);
-    connectIt.vdom.links.forEach((edge, i) => {
-      DrawEdge(graphics, edge);
-    });
-  };
-
-  const DrawEdge = (graphics, edge) => {
-    const d = D(edge.line);
-    graphics.main.innerHTML += Path(d, edge);
-    graphics.shadows.innerHTML += ShadowPath(d);
-  };
-
-  class ConnectTo extends HTMLElement {
-    constructor() {
-      super();
+  class Edge {
+    constructor(connectIt) {
+      this.connectIt = connectIt;
     }
 
-    connectedCallback() {
-      this.onScroll();
-      const connectTo = this;
-      addSvg(this);
-      this.onLoad(() => {
-        connectTo.refresh();
-      });
-      this.observe(function (mutation) {
-        if (mutation.target.parent == this && !mutation.target.closest("nodes"))
-          return;
-        connectTo.refresh();
+    refreshEdges() {
+      this.graphics = this.resetGraphics();
+      this.connectIt.vdom.links.forEach((edge, i) => {
+        this.graphics.main.appendChild(this.createPath(edge));
+        this.graphics.shadows.appendChild(this.createPath(edge));
       });
     }
 
-    onScroll = () => {
-      const connectTo = this;
-      document.addEventListener("scroll", connectTo.refresh);
-      window.addEventListener("resize", connectTo.refresh);
-    };
-
-    disconnectedCallback() {
-      this.observer.disconnect();
+    resetGraphics() {
+      const main = this.connectIt.querySelector("svg > g.gmain");
+      const shadows = this.connectIt.querySelector("svg > g.gshadow");
+      main.innerHTML = "";
+      shadows.innerHTML = "";
+      return { main, shadows };
     }
 
-    observe = (handler) => {
-      this.observer = new MutationObserver(function (mutations) {
-        mutations.forEach(handler);
-      });
+    createPath(edge) {
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute(
+        "d",
+        `M${edge.line.x1},${edge.line.y1} L${edge.line.x2},${edge.line.y2} `
+      );
+      path.setAttribute("stroke", edge.color);
+      path.setAttribute("stroke-width", edge.size ?? 2);
+      path.setAttribute("marker-start", `url(#${edge.markerStart})`);
+      path.setAttribute("marker-end", `url(#${edge.markerEnd})`);
+      return path;
+    }
+  }
 
-      this.observer.observe(document, {
-        attributes: true,
-        childList: true,
-        subtree: true,
-      });
-    };
+  class SVG {
+    constructor(element) {
+      this.element = element;
+      this.init();
+      this.edge = new Edge(element);
+    }
 
-    refresh = () => {
-      const vdom = new VDOM(this);
-      if (JSON.stringify(vdom) !== JSON.stringify(this.vdom)) {
-        this.vdom = vdom;
-        //addMouseEvents(this);
-        refreshMarkers(this);
-        refreshEdges(this);
+    init() {
+      this.svg = this.createSVG();
+      this.element.appendChild(this.svg);
+      this.element.defs = this.svg.querySelector("defs");
+    }
+
+    refresh() {
+      const vdom = new VDOM(this.element);
+      if (JSON.stringify(vdom) !== JSON.stringify(this.element.vdom)) {
+        this.element.vdom = vdom;
+        refreshMarkers(this.element);
+        this.edge.refreshEdges();
         this.resizeSVG();
       }
+    }
+
+    resizeSVG() {
+      var bbox = this.svg.getBBox();
+      this.svg.setAttribute("width", bbox.x + bbox.width + bbox.x);
+      this.svg.setAttribute("height", bbox.y + bbox.height + bbox.y);
+    }
+
+    createSVG() {
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      this.setSVGProperties(svg);
+      svg.appendChild(this.createDefs());
+      svg.appendChild(this.createGmain());
+      svg.appendChild(this.createGshadow());
+      return svg;
+    }
+
+    createDefs() {
+      const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+      return defs;
+    }
+
+    createGmain() {
+      const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("class", "gmain");
+      g.setAttribute("fill", "none");
+      g.setAttribute("stroke", "black");
+      g.setAttribute("stroke-width", "2");
+      return g;
+    }
+
+    createGshadow() {
+      const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("class", "gshadow");
+      return g;
+    }
+
+    setSVGProperties(svg) {
+      svg.setAttribute(
+        "style",
+        "position: absolute; top: 0; left: 0; z-index:-1"
+      );
+    }
+
+    resetSVG(svg) {
+      svg.innerHTML = "";
+    }
+  }
+
+  class Events {
+    constructor(element) {
+      this.element = element;
+    }
+
+    refresh = () => {
+      this.element.refresh();
     };
 
-    resizeSVG = () => {
-      var svg = this.querySelector("svg");
-      var bbox = svg.getBBox();
-      svg.setAttribute("width", bbox.x + bbox.width + bbox.x);
-      svg.setAttribute("height", bbox.y + bbox.height + bbox.y);
-    };
-
-    onLoad = (func) => {
+    refreshOnImagesLoaded() {
       Promise.all(
-        Array.from(this.querySelectorAll("img"))
+        Array.from(this.element.querySelectorAll("img"))
           .filter((img) => !img.complete)
           .map(
             (img) =>
@@ -406,10 +456,100 @@
                 img.onload = img.onerror = resolve;
               })
           )
-      ).then(() => {
-        func();
+      ).then(this.refresh);
+    }
+
+    refreshOnScroll() {
+      document.addEventListener("scroll", this.refresh);
+      window.addEventListener("resize", this.refresh);
+    }
+
+    disposeRefreshOnScroll() {
+      this.observer.disconnect();
+    }
+
+    refreshOnUserChanges() {
+      this.observer = new MutationObserver(function (mutations) {
+        mutations.forEach((mutation) => {
+          if (
+            mutation.target.parent == this.element &&
+            !mutation.target.closest("nodes")
+          )
+            return;
+          this.refresh();
+        });
       });
-    };
+
+      this.observer.observe(document, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+      });
+    }
+
+    disposeRefreshOnUserChanges() {
+      document.removeEventListener("scroll", this.refresh);
+      window.removeEventListener("resize", this.refresh);
+    }
+
+    addMouseEvents() {
+      this.element.addEventListener("click", (e) => {
+        e.target.parentElement.classList.contains("gshadow") &&
+          this.fireHandler("click", e);
+      });
+
+      this.element.addEventListener("mouseout", (e) => {
+        e.target.parentElement.classList.contains("gshadow") &&
+          this.fireHandler("mouseout", e);
+      });
+
+      this.element.addEventListener("mouseover", (e) => {
+        e.target.parentElement.classList.contains("gshadow") &&
+          this.fireHandler("mouseout", e);
+      });
+    }
+
+    fireHandler(eventName, e) {
+      const listenerName =
+        "onEdges" + eventName.charAt(0).toUpperCase() + eventName.slice(1);
+      const listener = this.element[listenerName];
+      listener && listener(this.getRelatedPath(e.target));
+      this.refresh();
+      e.stopPropagation();
+    }
+
+    getRelatedPath(shadowPath) {
+      const element = Array.prototype.indexOf.call(
+        shadowPath.parentElement.childNodes,
+        shadowPath
+      );
+      return this.element.querySelector(`edges edge:nth-child(${element + 1})`);
+    }
+  }
+
+  class ConnectTo extends HTMLElement {
+    constructor() {
+      super();
+
+      this.svg = new SVG(this);
+      this.events = new Events(this);
+    }
+
+    connectedCallback() {
+      this.events.refreshOnImagesLoaded();
+      this.events.refreshOnScroll();
+      this.events.refreshOnUserChanges();
+      this.events.addMouseEvents();
+    }
+
+    disconnectedCallback() {
+      this.events.disposeRefreshOnScroll();
+      this.events.disposeRefreshOnUserChanges();
+    }
+
+    refresh() {
+      this.svg.refresh();
+    }
   }
 
   customElements.get("connect-it") ||

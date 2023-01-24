@@ -1,4 +1,4 @@
-import Calc from "../utils/Calc";
+import Calc from "./Calc";
 
 export class VDOM {
   constructor(element) {
