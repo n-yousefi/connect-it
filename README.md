@@ -4,11 +4,11 @@ Connect everything together with SVG lines. `<connect-it>` is a web component th
 
 ## Features
 
-- Directed Javascript graph
+- Suitable for creating different types of diagrams
+- independent of node types
 - Customizable link colors and sizes
 - Customizable markers (circle, square, triangle)
-- Event handlers for edges (onClick, onMouseover, onMouseout)
-- Suitable for creating different types of diagrams
+- Create interactive diagrams by adding event handlers for edges (click, mouseover, mouseout)
 
 ## Examples/Demos
 
@@ -113,11 +113,7 @@ For now, we support 3 type of markers; Circle, square and triangle. You should d
 - onEdgesMouseout: Called when the user stops hovering over an edge
 - onEdgesClick: Called when the user clicks on an edge
 
-```javascript
-document.getElementById("connectIt").onEdgesMouseout = (edge) => {
-  edge.setAttribute("color", "black");
-};
-```
+You can use these event handlers to create custom interactions and animations in your graph.
 
 ### Limitations
 
