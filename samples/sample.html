@@ -85,14 +85,14 @@
           color="red"
           offset="5"
         ></shape>
+        <shape name="shape4" type="triangle" size="10" offset="10"></shape>
       </shapes>
       <edges>
         <edge
           from="item1"
           to="item2"
-          color="red"
           marker-start="shape2"
-          marker-end="shape1"
+          marker-end="shape4"
           size="2"
         ></edge>
         <edge
@@ -100,18 +100,19 @@
           to="item3"
           marker-start="shape2"
           marker-end="shape2"
-          size="1"
+          size="2"
         ></edge>
         <edge
           from="item2"
           to="item3"
           marker-start="shape2"
-          marker-end="shape1"
+          marker-end="shape4"
         ></edge>
         <edge
           from="item4"
           to="item1"
-          marker-start="shape2"
+          color="red"
+          marker-start="shape3"
           marker-end="shape1"
         ></edge>
         <edge
@@ -125,16 +126,11 @@
     <script>
       document.getElementById("graph").onEdgesMouseout = (edge) => {
         edge.setAttribute("color", "black");
-        console.log("mouseOut");
       };
-      document.getElementById("graph").onEdgesMousein = (edge) => {
+      document.getElementById("graph").onEdgesMouseover = (edge) => {
         edge.setAttribute("color", "blue");
-        console.log("mouseIn");
       };
-      document.getElementById("graph").onEdgesClick = (edge) => {
-        edge.setAttribute("size", Number(edge.getAttribute("size")) + 2);
-        console.log("Click");
-      };
+      document.getElementById("graph").onEdgesClick = (edge) => {};
     </script>
   </body>
 </html>

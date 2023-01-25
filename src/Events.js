@@ -66,7 +66,7 @@ class Events {
 
     this.element.addEventListener("mouseover", (e) => {
       e.target.parentElement.classList.contains("gshadow") &&
-        this.fireHandler("mouseout", e);
+        this.fireHandler("mouseover", e);
     });
   }
 

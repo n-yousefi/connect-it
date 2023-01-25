@@ -61,10 +61,7 @@ class SVG {
   }
 
   setSVGProperties(svg) {
-    svg.setAttribute(
-      "style",
-      "position: absolute; top: 0; left: 0; z-index:-1"
-    );
+    svg.setAttribute("style", "position: absolute; top: 0; left: 0; z-index:1");
   }
 
   resetSVG(svg) {

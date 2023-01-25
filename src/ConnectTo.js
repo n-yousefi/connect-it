@@ -13,6 +13,7 @@ class ConnectTo extends HTMLElement {
     this.events.refreshOnImagesLoaded();
     this.events.refreshOnScroll();
     this.events.refreshOnUserChanges();
+    this.events.addMouseEvents();
   }
 
   disconnectedCallback() {
@@ -22,7 +23,6 @@ class ConnectTo extends HTMLElement {
 
   refresh() {
     this.svg.refresh();
-    this.events.addMouseEvents();
   }
 }
 

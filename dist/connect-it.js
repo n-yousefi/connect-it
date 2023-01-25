@@ -361,10 +361,12 @@
       );
       const edgeSize = edge.size ?? 2;
       if (isShadow) {
+        path.setAttribute("stroke", "black");
+        path.setAttribute("opacity", 0);
         path.setAttribute("stroke-width", Math.max(edgeSize, 15));
       } else if (!isShadow) {
         path.setAttribute("stroke-width", edgeSize);
-        if (edge.color) path.setAttribute("stroke", edge.color);
+        if (edge.color) path.setAttribute("stroke", edge.color ?? "black");
         path.setAttribute("marker-start", `url(#${edge.markerStart})`);
         path.setAttribute("marker-end", `url(#${edge.markerEnd})`);
       }
@@ -431,10 +433,7 @@
     }
 
     setSVGProperties(svg) {
-      svg.setAttribute(
-        "style",
-        "position: absolute; top: 0; left: 0; z-index:-1"
-      );
+      svg.setAttribute("style", "position: absolute; top: 0; left: 0; z-index:1");
     }
 
     resetSVG(svg) {
@@ -510,7 +509,7 @@
 
       this.element.addEventListener("mouseover", (e) => {
         e.target.parentElement.classList.contains("gshadow") &&
-          this.fireHandler("mouseout", e);
+          this.fireHandler("mouseover", e);
       });
     }
 
@@ -544,6 +543,7 @@
       this.events.refreshOnImagesLoaded();
       this.events.refreshOnScroll();
       this.events.refreshOnUserChanges();
+      this.events.addMouseEvents();
     }
 
     disconnectedCallback() {
@@ -553,7 +553,6 @@
 
     refresh() {
       this.svg.refresh();
-      this.events.addMouseEvents();
     }
   }
 
