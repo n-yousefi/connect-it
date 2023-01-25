@@ -125,12 +125,15 @@
     <script>
       document.getElementById("graph").onEdgesMouseout = (edge) => {
         edge.setAttribute("color", "black");
+        console.log("mouseOut");
       };
       document.getElementById("graph").onEdgesMousein = (edge) => {
         edge.setAttribute("color", "blue");
+        console.log("mouseIn");
       };
       document.getElementById("graph").onEdgesClick = (edge) => {
         edge.setAttribute("size", Number(edge.getAttribute("size")) + 2);
+        console.log("Click");
       };
     </script>
   </body>
