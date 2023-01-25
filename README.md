@@ -50,7 +50,7 @@ Using unpkg CDN:
 
 ### Nodes
 
-Specify an Id for your tag and put it inside the `<nodes>` tag. You can style it as you wish.
+Specify an Id for your node and put it inside the `<nodes>` tag. You can style it as you wish.
 
 ```html
 <connect-it>
@@ -81,9 +81,10 @@ Define source and adjacent nodes to draw the graph. You can specify the color an
 </connect-it>
 ```
 
-### Markers
+### Edge Markers
 
-For now, we support 3 type of markers; Circle, square and triangle. You should define your markers inside the `<shapes>` tag. then you can use this shapes as an edge marker:
+You can define different shapes inside the `<shapes>` tag and use them as an edge marker.
+For now, we support 3 type of shapes; `circle`, `square` and `triangle`.
 
 ```html
 <connect-it>
