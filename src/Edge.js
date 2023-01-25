@@ -23,13 +23,16 @@ export default class Edge {
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     path.setAttribute(
       "d",
-      `M${edge.line.x1},${edge.line.y1} L${edge.line.x2},${edge.line.y2} `
+      `M${Math.round(edge.line.x1)},${Math.round(edge.line.y1)} L${Math.round(
+        edge.line.x2
+      )},${Math.round(edge.line.y2)} `
     );
     const edgeSize = edge.size ?? 2;
     if (isShadow) {
       path.setAttribute("stroke", "black");
       path.setAttribute("opacity", 0);
       path.setAttribute("stroke-width", Math.max(edgeSize, 15));
+      path.style = "pointer-events: auto;";
     } else if (!isShadow) {
       path.setAttribute("stroke-width", edgeSize);
       if (edge.color) path.setAttribute("stroke", edge.color ?? "black");

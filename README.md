@@ -1,12 +1,22 @@
 # &lt;connect-it&gt;
 
-Connect everything together with SVG lines. &lt;connect-it&gt; is a web component that is responsible for creating a graph or digraph. Just introduce your styled tags as nodes and then specify the adjacent nodes.
+Connect everything together with SVG lines. `<connect-it>` is a web component that allows you to create various types of diagrams, such as flowcharts, mind maps, network diagrams, org charts, and flow diagrams. The component is highly customizable, so you can create many other types of diagrams as well.
 
-![Directed Javascript graph](https://github.com/n-yousefi/connect-it/blob/main/samples/demo.jpg)
+## Features
+
+- Directed Javascript graph
+- Customizable link colors and sizes
+- Customizable markers (circle, square, triangle)
+- Event handlers for edges (onClick, onMouseover, onMouseout)
+- Suitable for creating different types of diagrams
 
 ## Examples/Demos
 
-The best way to become acquainted with the library is to see [Demos](https://htmlpreview.github.io/?https://github.com/n-yousefi/connect-it/blob/main/samples/sample.html)
+The best way to become familiar with the library is to check out this demos:
+
+- [Diffrent node types](https://htmlpreview.github.io/?https://github.com/n-yousefi/connect-it/blob/main/samples/diffrent-node-types.html)
+- [Movable random nodes](https://htmlpreview.github.io/?https://github.com/n-yousefi/connect-it/blob/main/samples/movable-random-nodes.html)
+- [Flowchart](https://htmlpreview.github.io/?https://github.com/n-yousefi/connect-it/blob/main/samples/flowchart.html)
 
 ## Installing
 
@@ -36,18 +46,20 @@ Using unpkg CDN:
 <script src="https://unpkg.com/connect-it/dist/connect-it.js"></script>
 ```
 
-## How it works
+## Usage
 
 ### Nodes
 
-Spacify an Id for your tag and put it inside the nodes tag. You can style it as you wish.
+Specify an Id for your tag and put it inside the `<nodes>` tag. You can style it as you wish.
 
 ```html
-<nodes>
-  <div id="node1">First</div>
-  <div id="node2">Second</div>
-  <div id="node3">Third</div>
-</nodes>
+<connect-it>
+  <nodes>
+    <div id="node1">First</div>
+    <div id="node2">Second</div>
+    <div id="node3">Third</div>
+  </nodes>
+</connect-it>
 ```
 
 ### Adjacents
@@ -55,35 +67,58 @@ Spacify an Id for your tag and put it inside the nodes tag. You can style it as 
 Define source and adjacent nodes to draw the graph. You can specify the color and size of the link.
 
 ```html
-<edges>
-  <edge from="node1" to="node2" color="red"></edge>
-  <edge from="node1" to="node3"></edge>
-  <edge from="node2" to="node3" size="2"></edge>
-</edges>
+<connect-it>
+  <nodes>
+    <div id="node1">First</div>
+    <div id="node2">Second</div>
+    <div id="node3">Third</div>
+  </nodes>
+  <edges>
+    <edge from="node1" to="node2" color="red"></edge>
+    <edge from="node1" to="node3"></edge>
+    <edge from="node2" to="node3" size="2"></edge>
+  </edges>
+</connect-it>
 ```
 
 ### Markers
 
-For now, we support 3 type of markers; Circle, square and triangle. You should define your markers inside the shapes tag.
+For now, we support 3 type of markers; Circle, square and triangle. You should define your markers inside the `<shapes>` tag. then you can use this shapes as an edge marker:
 
 ```html
-<shapes>
-  <shape name="shape1" type="triangle" size="10" color="red"></shape>
-  <shape name="shape2" type="square" size="10"></shape>
-  <shape name="shape3" type="circle" size="5" color="red"></shape>
-</shapes>
+<connect-it>
+  <nodes>
+    <div id="node1">First</div>
+    <div id="node2">Second</div>
+    <div id="node3">Third</div>
+  </nodes>
+  <edges>
+    <edge from="node1" to="node2" marker-start="s1" marker-end="t1"></edge>
+    <edge from="node1" to="node3"></edge>
+    <edge from="node2" to="node3"></edge>
+  </edges>
+  <shapes>
+    <shape name="t1" type="triangle" size="10" color="red"></shape>
+    <shape name="s1" type="square" size="10"></shape>
+    <shape name="c1" type="circle" size="5" color="red"></shape>
+  </shapes>
+</connect-it>
 ```
 
-then you can use this shapes as an edge marker:
+### Event Handlers
 
-```html
-<edge from="node1" to="node2" marker-start="shape2" marker-end="shape1"></edge>
+`connect-it` provides some event handlers that you can use to create interactive diagrams. The following event handlers are available now:
+
+- onEdgesMouseover: Called when the user hovers over an edge
+- onEdgesMouseout: Called when the user stops hovering over an edge
+- onEdgesClick: Called when the user clicks on an edge
+
+```javascript
+document.getElementById("connectIt").onEdgesMouseout = (edge) => {
+  edge.setAttribute("color", "black");
+};
 ```
 
 ### Limitations
 
 Currently fixed and sticky position is not supported.
-
-## Author
-
-Naser Yousefi

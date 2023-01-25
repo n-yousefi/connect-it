@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="#" />
+    <title>Pop-up info box — web components</title>
+    <script src="../dist/connect-it.js" defer></script>
+    <style>
+      .circle-node {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: bisque;
+        border: 1px dashed blueviolet;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <connect-it id="graph">
+      <nodes id="nodes-container"></nodes>
+      <shapes>
+        <shape
+          name="shape1"
+          type="circle"
+          size="2"
+          color="black"
+          offset="-3"
+        ></shape>
+      </shapes>
+      <edges>
+        <edge
+          from="node1"
+          to="node2"
+          marker-start="shape1"
+          marker-end="shape1"
+        ></edge>
+        <edge
+          from="node2"
+          to="node3"
+          marker-start="shape1"
+          marker-end="shape1"
+        ></edge>
+        <edge
+          from="node3"
+          to="node4"
+          marker-start="shape1"
+          marker-end="shape1"
+        ></edge>
+        <edge
+          from="node4"
+          to="node5"
+          marker-start="shape1"
+          marker-end="shape1"
+        ></edge>
+        <edge
+          from="node5"
+          to="node6"
+          marker-start="shape1"
+          marker-end="shape1"
+        ></edge>
+      </edges>
+    </connect-it>
+    <script>
+      const nodesContainer = document.getElementById("nodes-container");
+      for (let i = 1; i <= 6; i++) {
+        let newNode = document.createElement("div");
+        newNode.classList.add("circle-node");
+        newNode.setAttribute("id", "node" + i);
+        newNode.style.left = 50 + Math.random() * 500 + "px";
+        newNode.style.top = 50 + Math.random() * 500 + "px";
+        nodesContainer.appendChild(newNode);
+      }
+
+      // Movable
+      const nodes = document.querySelectorAll(".circle-node");
+
+      let isMouseDown = false;
+      let currentNode = null;
+      let currentX = 0;
+      let currentY = 0;
+
+      nodes.forEach((node) => {
+        node.addEventListener("mousedown", handleMouseDown);
+      });
+
+      function handleMouseDown(e) {
+        console.log(e);
+
+        isMouseDown = true;
+        currentNode = e.target;
+        currentX = e.clientX;
+        currentY = e.clientY;
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
+      }
+
+      function handleMouseMove(e) {
+        if (!isMouseDown) {
+          return;
+        }
+        const deltaX = e.clientX - currentX;
+        const deltaY = e.clientY - currentY;
+        currentNode.style.left = currentNode.offsetLeft + deltaX + "px";
+        currentNode.style.top = currentNode.offsetTop + deltaY + "px";
+        currentX = e.clientX;
+        currentY = e.clientY;
+      }
+
+      function handleMouseUp() {
+        isMouseDown = false;
+        currentNode = null;
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      }
+
+      document.getElementById("graph").onEdgesMouseout = (edge) => {
+        edge.setAttribute("color", "black");
+      };
+      document.getElementById("graph").onEdgesMouseover = (edge) => {
+        edge.setAttribute("color", "blue");
+      };
+    </script>
+  </body>
+</html>

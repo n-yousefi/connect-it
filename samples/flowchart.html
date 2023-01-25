@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Flowchart Example</title>
+    <link rel="shortcut icon" href="#" />
+    <script src="../dist/connect-it.js" defer></script>
+    <style>
+      /* CSS styles for the flowchart nodes */
+      .flowchart-node {
+        position: absolute;
+        width: 110px;
+        height: 60px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: center;
+        background-color: #f9f9f9;
+      }
+    </style>
+  </head>
+  <body>
+    <connect-it id="flowchart">
+      <nodes>
+        <div id="node1" class="flowchart-node" style="left: 500px; top: 50px">
+          Step 1: Input
+        </div>
+        <div id="node2" class="flowchart-node" style="left: 500px; top: 200px">
+          Step 2: Process
+        </div>
+        <div id="node3" class="flowchart-node" style="left: 500px; top: 400px">
+          Step 3: Validate
+        </div>
+        <div id="node4" class="flowchart-node" style="left: 300px; top: 600px">
+          Step 4: Output
+        </div>
+        <div id="node5" class="flowchart-node" style="left: 700px; top: 600px">
+          Step 5: Store
+        </div>
+      </nodes>
+      <shapes>
+        <shape name="arrow" type="triangle" size="10" color="black"></shape>
+      </shapes>
+      <edges>
+        <edge from="node1" to="node2" marker-end="arrow"></edge>
+        <edge from="node2" to="node3" marker-end="arrow"></edge>
+        <edge from="node3" to="node4" marker-end="arrow"></edge>
+        <edge from="node3" to="node5" marker-end="arrow"></edge>
+      </edges>
+    </connect-it>
+  </body>
+</html>

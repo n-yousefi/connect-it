@@ -30,7 +30,7 @@ class Events {
   }
 
   refreshOnUserChanges() {
-    this.observer = new MutationObserver(function (mutations) {
+    this.observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (
           mutation.target.parent == this.element &&

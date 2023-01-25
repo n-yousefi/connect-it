@@ -53,21 +53,23 @@
   <body>
     <connect-it id="graph">
       <nodes>
-        <div id="item1">relative positioned div</div>
-        <br />
-        <div id="item2">static positioned div</div>
+        <div>
+          <div id="item1">relative positioned div</div>
+          <br />
+          <div id="item2">static positioned div</div>
 
-        <div id="flex">
-          <p>flex positioned div</p>
-          <div>flex child 1</div>
-          <div id="item3">flex child 2</div>
+          <div id="flex">
+            <p>flex positioned div</p>
+            <div>flex child 1</div>
+            <div id="item3">flex child 2</div>
+          </div>
+          <ul id="item4">
+            <li>absolute postioned</li>
+            <li>item 1</li>
+          </ul>
+
+          <img id="item5" src="img.png" loading="lazy" />
         </div>
-        <ul id="item4">
-          <li>absolute postioned</li>
-          <li>item 1</li>
-        </ul>
-
-        <img id="item5" src="img.png" loading="lazy" />
       </nodes>
       <shapes>
         <shape
