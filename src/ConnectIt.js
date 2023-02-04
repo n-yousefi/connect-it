@@ -1,7 +1,7 @@
 import SVG from "./SVG";
 import Events from "./Events";
 
-class ConnectTo extends HTMLElement {
+class ConnectIt extends HTMLElement {
   constructor() {
     super();
 
@@ -27,4 +27,4 @@ class ConnectTo extends HTMLElement {
 }
 
 customElements.get("connect-it") ||
-  customElements.define("connect-it", ConnectTo);
+  customElements.define("connect-it", ConnectIt);
