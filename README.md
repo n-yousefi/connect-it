@@ -28,12 +28,6 @@ Using npm:
 $ npm install connect-it
 ```
 
-Then import it:
-
-```html
-<script src="./node_modules/connect-it/dist/connect-it.js" defer></script>
-```
-
 Using jsDelivr CDN:
 
 ```html
